@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,11 @@ namespace Apskaita_Bandymas
         public MainWindow()
         {
             InitializeComponent();
+            DataTable L = new DataTable();
+            L.Columns.Add("Stulpelis Gražus");
+            L.Columns.Add("Stulpelis GJHbkn");
 
+            
             string[] Eil = File.ReadAllLines("TextFile1.txt");
             string[] Imone = new string[Eil.Length];
             string[] Daiktas = new string[Eil.Length];
@@ -43,31 +48,11 @@ namespace Apskaita_Bandymas
                 Daiktas[i] = Dalys[1];
                 Kiekis[i] = int.Parse(Dalys[2]);
                 VienetoPav[i] = Dalys[3];
-                Kaina[i] = double.Parse(Dalys[4]);
+                Kaina[i] = double.Parse(Dalys[4], System.Globalization.CultureInfo.InvariantCulture);
                 BarKodas[i] = int.Parse(Dalys[5]);
+                L.Rows.Add(Imone[i], Daiktas[i]);
             }
-
-
-            
-        }
-
-        private object StringSplitOptions(string p)
-        {
-            throw new NotImplementedException();
-        }
-        public class Duomenys
-        {
-            public string Vardas { get; set; }
-            public string Pavarde { get; set; }
-        }
-        private void Pradedam(object sender, EventArgs e)
-       {
-            Duomenys[] I = new Duomenys[6];
-            for (int i = 0; i < 6; i++)
-            {
-                I[i] = new Duomenys { Vardas = i.ToString(), Pavarde = i.ToString() };
-            }
-            Gridas.ItemsSource = I;
+            Gridas.DataContext = L.DefaultView;            
         }
     }
 }
