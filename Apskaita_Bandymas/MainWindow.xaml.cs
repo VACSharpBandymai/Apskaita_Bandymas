@@ -29,13 +29,20 @@ namespace Apskaita_Bandymas
         string[] VienetoPav;
         double[] Kaina;
         int[] BarKodas;
+
         public MainWindow()
         {
             InitializeComponent();
+
             DataTable L = new DataTable();
+
             L.Columns.Add("Imones Pavadinimas");
-            L.Columns.Add("Preke");
-            // Va šitaip
+            L.Columns.Add("Prekes");
+            L.Columns.Add("Kiekis");
+            L.Columns.Add("Vienetas");
+            L.Columns.Add("Kaina/Eur");
+            L.Columns.Add("BarKodas");
+
 
             Eil = File.ReadAllLines("TextFile1.txt");
             Imone = new string[Eil.Length];
@@ -57,9 +64,8 @@ namespace Apskaita_Bandymas
                 VienetoPav[i] = Dalys[3];
                 Kaina[i] = double.Parse(Dalys[4], System.Globalization.CultureInfo.InvariantCulture);
                 BarKodas[i] = int.Parse(Dalys[5]);
-                L.Rows.Add(Imone[i], Daiktas[i]);
+                L.Rows.Add(Imone[i], Daiktas[i], Kiekis[i], VienetoPav[i], Kaina[i], BarKodas[i]);
             }
-
             Gridas.DataContext = L.DefaultView;
         }
     }
