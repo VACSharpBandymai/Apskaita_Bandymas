@@ -35,7 +35,7 @@ namespace Apskaita_Bandymas
             DataTable L = new DataTable();
             L.Columns.Add("Stulpelis Gražus");
             L.Columns.Add("Stulpelis GJHbkn");
-
+            // Va šitaip
             
             Eil = File.ReadAllLines("TextFile1.txt");
             Imone = new string[Eil.Length];
