@@ -46,7 +46,7 @@ namespace Apskaita_Bandymas
             Duomenys[] I = new Duomenys[6];
             for (int i = 0; i < 6; i++)
             {
-                I[i] = new Duomenys { Vardas = i.ToString(), Pavarde = "Pavarde" };
+                I[i] = new Duomenys { Vardas = i.ToString(), Pavarde = i.ToString() };
             }
             Gridas.ItemsSource = I;
 
