@@ -24,18 +24,6 @@ namespace Apskaita_Bandymas
         {
             InitializeComponent();
         }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           /* Duomenys[] I = new Duomenys[6];
-            for (int i = 0; i < 6; i++)
-            {
-                I[i] = new Duomenys { Vardas = i.ToString(), Pavarde = "Pavarde" };
-                Gridas.ItemsSource = I;
-            }
-            */
-        }
-
         public class Duomenys
         {
             public string Vardas { get; set; }
@@ -49,7 +37,6 @@ namespace Apskaita_Bandymas
                 I[i] = new Duomenys { Vardas = i.ToString(), Pavarde = i.ToString() };
             }
             Gridas.ItemsSource = I;
-
         }
     }
 }
