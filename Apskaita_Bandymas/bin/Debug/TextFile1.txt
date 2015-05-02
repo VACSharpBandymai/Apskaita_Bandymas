@@ -1,5 +1,7 @@
-UAB TOPO CENTRAS | SIEMENS | 100 | vnt. | 123.30 | 137428 |
+UAB TOPO CENTRAS | SIEMENS | 100 | vnt. | 123 | 137428 |
 UAB TECHNIKA | Kompiuteris | 10 | vnt. | 999 | 334292 |
 UAB TECHNIKA | Hardas | 33 | vnt. | 89 | 142365 |
 UAB TOPO CENTRAS | Pelyte | 32 | vnt. | 33 | 324151 |
 UAB TECHNIKA | Klaviatura | 11 | vnt. | 55 | 987532 |
+UAB TOPO CENTRAS | Laidai | 199 | vnt. | 0.4 | 223311 |
+UAB TECHNIKA | Monitorius | 9 | vnt. | 121.99 | 808843 |
