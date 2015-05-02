@@ -22,6 +22,13 @@ namespace Apskaita_Bandymas
     /// </summary>
     public partial class MainWindow : Window
     {
+        string[] Eil;
+        string[] Imone;
+        string[] Daiktas;
+        int[] Kiekis;
+        string[] VienetoPav;
+        double[] Kaina;
+        int[] BarKodas;
         public MainWindow()
         {
             InitializeComponent();
@@ -30,13 +37,13 @@ namespace Apskaita_Bandymas
             L.Columns.Add("Stulpelis GJHbkn");
 
             
-            string[] Eil = File.ReadAllLines("TextFile1.txt");
-            string[] Imone = new string[Eil.Length];
-            string[] Daiktas = new string[Eil.Length];
-            int[] Kiekis = new int[Eil.Length];
-            string[] VienetoPav = new string[Eil.Length];
-            double[] Kaina = new double[Eil.Length];
-            int[] BarKodas = new int[Eil.Length];
+            Eil = File.ReadAllLines("TextFile1.txt");
+            Imone = new string[Eil.Length];
+            Daiktas = new string[Eil.Length];
+            Kiekis = new int[Eil.Length];
+            VienetoPav = new string[Eil.Length];
+            Kaina = new double[Eil.Length];
+            BarKodas = new int[Eil.Length];
 
 
             for (int i = 0; i < Eil.Length; i++)
@@ -52,7 +59,7 @@ namespace Apskaita_Bandymas
                 BarKodas[i] = int.Parse(Dalys[5]);
                 L.Rows.Add(Imone[i], Daiktas[i]);
             }
-            Gridas.DataContext = L.DefaultView;            
+            Gridas.DataContext = L.DefaultView;                     
         }
     }
 }

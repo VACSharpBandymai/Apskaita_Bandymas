@@ -4,6 +4,5 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Left" Margin="48,56,0,0" VerticalAlignment="Top" Height="209" Width="417"/>
-
     </Grid>
 </Window>
