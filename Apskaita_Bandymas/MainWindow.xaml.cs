@@ -26,20 +26,30 @@ namespace Apskaita_Bandymas
             InitializeComponent();
 
             string[] Eil;
-            string[] Imone;
-            string[] Daiktas;
-            int[] Kiekis;
-            string[] VienetoPav;
-            int[] Kaina;
-            int[] BarKodas;
+            string[] Imone = new string[6];
+            string[] Daiktas = new string[6];
+            int[] Kiekis = new int[6];
+            string[] VienetoPav = new string[6];
+            int[] Kaina = new int[6];
+            int[] BarKodas = new int[6];
 
             Eil = File.ReadAllLines("TextFile1.txt");
 
             for (int i = 0; i < Eil.Length; i++)
             {
                 String Eilute = Eil[i];
-                string[] Dalys = Eilute.Split(new String[] { "|" }, System.StringSplitOptions.RemoveEmptyEntries);
-            } 
+                String[] Dalys = Eilute.Split(new String[] { "|" }, System.StringSplitOptions.RemoveEmptyEntries);
+
+                Imone[i] = Dalys[0];
+                Daiktas[i] = Dalys[1];
+                Kiekis[i] = int.Parse(Dalys[2]);
+                VienetoPav[i] = Dalys[3];
+                Kaina[i] = int.Parse(Dalys[4]);
+                BarKodas[i] = int.Parse(Dalys[5]);
+            }
+
+
+            
         }
 
         private object StringSplitOptions(string p)
