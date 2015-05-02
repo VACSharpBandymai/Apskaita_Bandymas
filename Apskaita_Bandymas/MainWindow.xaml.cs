@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Apskaita_Bandymas
 {
@@ -23,6 +24,21 @@ namespace Apskaita_Bandymas
         public MainWindow()
         {
             InitializeComponent();
+
+            string[] Eil;
+            string[] Imone;
+            string[] Daiktas;
+            int[] Kiekis;
+            string[] VienetoPav;
+            int[] Kaina;
+            int[] BarKodas;
+
+            Eil = File.ReadAllLines("TextFile1.txt");
+
+            for (int i = 0; i < Eil.Length; i++)
+            {
+                String Eilute = Eil[i];
+            } 
         }
         public class Duomenys
         {
