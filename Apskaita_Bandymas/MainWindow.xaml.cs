@@ -25,15 +25,14 @@ namespace Apskaita_Bandymas
         {
             InitializeComponent();
 
-            string[] Eil;
-            string[] Imone = new string[6];
-            string[] Daiktas = new string[6];
-            int[] Kiekis = new int[6];
-            string[] VienetoPav = new string[6];
-            int[] Kaina = new int[6];
-            int[] BarKodas = new int[6];
+            string[] Eil = File.ReadAllLines("TextFile1.txt");
+            string[] Imone = new string[Eil.Length];
+            string[] Daiktas = new string[Eil.Length];
+            int[] Kiekis = new int[Eil.Length];
+            string[] VienetoPav = new string[Eil.Length];
+            double[] Kaina = new double[Eil.Length];
+            int[] BarKodas = new int[Eil.Length];
 
-            Eil = File.ReadAllLines("TextFile1.txt");
 
             for (int i = 0; i < Eil.Length; i++)
             {
@@ -44,7 +43,7 @@ namespace Apskaita_Bandymas
                 Daiktas[i] = Dalys[1];
                 Kiekis[i] = int.Parse(Dalys[2]);
                 VienetoPav[i] = Dalys[3];
-                Kaina[i] = int.Parse(Dalys[4]);
+                Kaina[i] = double.Parse(Dalys[4]);
                 BarKodas[i] = int.Parse(Dalys[5]);
             }
 
