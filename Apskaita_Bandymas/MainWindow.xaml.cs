@@ -38,7 +38,13 @@ namespace Apskaita_Bandymas
             for (int i = 0; i < Eil.Length; i++)
             {
                 String Eilute = Eil[i];
+                string[] Dalys = Eilute.Split(new String[] { "|" }, StringSplitOptions("").RemoveEmptyEntries);
             } 
+        }
+
+        private object StringSplitOptions(string p)
+        {
+            throw new NotImplementedException();
         }
         public class Duomenys
         {
