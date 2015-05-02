@@ -33,8 +33,8 @@ namespace Apskaita_Bandymas
         {
             InitializeComponent();
             DataTable L = new DataTable();
-            L.Columns.Add("Stulpelis Gražus");
-            L.Columns.Add("Stulpelis GJHbkn");
+            L.Columns.Add("Imones Pavadinimas");
+            L.Columns.Add("Preke");
             // Va šitaip
             
             Eil = File.ReadAllLines("TextFile1.txt");
@@ -59,7 +59,43 @@ namespace Apskaita_Bandymas
                 BarKodas[i] = int.Parse(Dalys[5]);
                 L.Rows.Add(Imone[i], Daiktas[i]);
             }
+
             Gridas.DataContext = L.DefaultView;                     
+
+
+
+
+            
+        }
+
+        private object StringSplitOptions(string p)
+        {
+            throw new NotImplementedException();
+        }
+        public class Duomenys
+        {
+            public string Imones_Pavadinimas { get; set; }
+            public string Daiktas { get; set; }
+            public string Kiekis { get; set; }
+            public string VienetoPav { get; set; }
+            public string KainaEUR { get; set; }
+            public string BarKodas { get; set; }
+
+        }
+
+        private void Pradedam(object sender, EventArgs e)
+       {
+
+            Duomenys[] I = new Duomenys[Eil.Lenght];
+            for (int i = 0; i < Eil.Lenght; i++)
+            {
+                I[i] = new Duomenys { Imones_Pavadinimas = "bum"};
+            }
+            Gridas.ItemsSource = I;
+
+            Gridas.DataContext = L.DefaultView;                     
+
+
         }
     }
 }
