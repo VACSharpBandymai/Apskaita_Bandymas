@@ -38,7 +38,7 @@ namespace Apskaita_Bandymas
             for (int i = 0; i < Eil.Length; i++)
             {
                 String Eilute = Eil[i];
-                string[] Dalys = Eilute.Split(new String[] { "|" }, StringSplitOptions("").RemoveEmptyEntries);
+                string[] Dalys = Eilute.Split(new String[] { "|" }, System.StringSplitOptions.RemoveEmptyEntries);
             } 
         }
 
