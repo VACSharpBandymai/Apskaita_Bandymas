@@ -43,7 +43,7 @@ namespace Apskaita_Bandymas
                 Daiktas[i] = Dalys[1];
                 Kiekis[i] = int.Parse(Dalys[2]);
                 VienetoPav[i] = Dalys[3];
-                Kaina[i] = double.Parse(Dalys[4]);
+                Kaina[i] = double.Parse(Dalys[4], System.Globalization.CultureInfo.InvariantCulture);
                 BarKodas[i] = int.Parse(Dalys[5]);
             }
 
@@ -57,15 +57,21 @@ namespace Apskaita_Bandymas
         }
         public class Duomenys
         {
-            public string Vardas { get; set; }
-            public string Pavarde { get; set; }
+            public string Imones_Pavadinimas { get; set; }
+            public string Daiktas { get; set; }
+            public string Kiekis { get; set; }
+            public string VienetoPav { get; set; }
+            public string KainaEUR { get; set; }
+            public string BarKodas { get; set; }
+
         }
+
         private void Pradedam(object sender, EventArgs e)
        {
-            Duomenys[] I = new Duomenys[6];
-            for (int i = 0; i < 6; i++)
+            Duomenys[] I = new Duomenys[Eil.Lenght];
+            for (int i = 0; i < Eil.Lenght; i++)
             {
-                I[i] = new Duomenys { Vardas = i.ToString(), Pavarde = i.ToString() };
+                I[i] = new Duomenys { Imones_Pavadinimas = "bum"};
             }
             Gridas.ItemsSource = I;
         }

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <DataGrid x:Name="Gridas" HorizontalAlignment="Left" Margin="48,56,0,0" VerticalAlignment="Top" Height="209" Width="417" Initialized="Pradedam"/>
+        <DataGrid x:Name="Gridas" HorizontalAlignment="Left" Margin="57,56,0,0" VerticalAlignment="Top" Height="209" Width="424" Initialized="Pradedam"/>
 
     </Grid>
 </Window>
