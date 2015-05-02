@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
+using System.Windows.Documents; 
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -40,7 +40,7 @@ namespace Apskaita_Bandymas
             L.Columns.Add("Prekes");
             L.Columns.Add("Kiekis");
             L.Columns.Add("Vienetas");
-            L.Columns.Add("Kaina/Eur");
+            L.Columns.Add("Kaina Eur");
             L.Columns.Add("BarKodas");
 
 
