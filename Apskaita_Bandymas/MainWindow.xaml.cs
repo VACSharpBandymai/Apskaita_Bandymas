@@ -83,5 +83,16 @@ namespace Apskaita_Bandymas
                 
             Gridas.DataContext = L.DefaultView;
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataTable L = new DataTable();
+              string getcbx = (Cbx.SelectedItem as ComboBoxItem).Content.ToString();
+              MessageBox.Show(getcbx);
+
+        }  
+        
+
+        
     }
 }
