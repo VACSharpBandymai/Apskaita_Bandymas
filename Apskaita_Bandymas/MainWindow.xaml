@@ -15,7 +15,18 @@
         <TabControl HorizontalAlignment="Left" Height="486" VerticalAlignment="Top" Width="632">
             <TabItem Header="Priemimas">
                 <Grid Background="#FFE5E5E5" Margin="-12,-4,-5,-6">
-                    <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="10,81,36,0" VerticalAlignment="Top" Height="247" Width="593" CanUserAddRows="True" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit"/>
+                    <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="10,81,36,0" VerticalAlignment="Top" Height="247" Width="593" CanUserAddRows="True" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Suma Eur}" Value=" ">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+                    </DataGrid>
                     <ComboBox x:Name="Cbx" Text="Choose" HorizontalAlignment="Left" Margin="431,38,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="ComboBox_SelectionChanged" ScrollViewer.CanContentScroll="False" IsTextSearchEnabled="False"/>
                     <DataGrid x:Name="GridasAts" ItemsSource="{Binding}" CanUserAddRows="False" HorizontalAlignment="Left" Margin="10,356,0,0" VerticalAlignment="Top" Height="65" Width="593" CanUserSortColumns="False">
                         <DataGrid.Resources>

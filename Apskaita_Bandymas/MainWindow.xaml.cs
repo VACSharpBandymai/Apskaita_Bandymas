@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Windows.Controls.Primitives;
 
 namespace Apskaita_Bandymas
 {
@@ -81,7 +82,7 @@ namespace Apskaita_Bandymas
 
             double Kiekiukas = 0, Imoniusk = 0, Daiktuk = 0, Sumukas = 0;
             for (int i = 0; i < Eil.Length; i++)
-            { 
+            {
                 Sumukas += Suma[i];
                 Kiekiukas += Kiekis[i];
                 Imoniusk++;
@@ -120,7 +121,7 @@ namespace Apskaita_Bandymas
                 {
                     L.Rows.Add(Imone[i], Daiktas[i], Kiekis[i], VienetoPav[i], Kaina[i], BarKodas[i], Suma[i]);
                 }
-                else if(getcbx == "Visos Prekes")
+                else if (getcbx == "Visos Prekes")
                     L.Rows.Add(Imone[i], Daiktas[i], Kiekis[i], VienetoPav[i], Kaina[i], BarKodas[i], Suma[i]);
             }
 
@@ -129,10 +130,10 @@ namespace Apskaita_Bandymas
             {
                 if (getcbx == Imone[i])
                 {
-                        Sumukas += Suma[i];
-                        Kiekiukas += Kiekis[i];
-                        Imoniusk++;
-                        Daiktuk++;
+                    Sumukas += Suma[i];
+                    Kiekiukas += Kiekis[i];
+                    Imoniusk++;
+                    Daiktuk++;
                 }
                 else if (getcbx == "Visos Prekes")
                 {
@@ -149,37 +150,40 @@ namespace Apskaita_Bandymas
             S.Columns.Add("Bendru Prekiu Suma");
 
             S.Rows.Add(" ", Kiekiukas, Sumukas);
-            
+
             Gridas.DataContext = L.DefaultView;
             GridasAts.DataContext = S.DefaultView;
         }
-
         private void RowEdit(object sender, DataGridRowEditEndingEventArgs e)
         {
-            Imone = new string[Imone.Length + 1];
-            Daiktas = new string[Daiktas.Length + 1];
-            Kiekis = new int[Kiekis.Length + 1];
-            VienetoPav = new string[VienetoPav.Length + 1];
-            Kaina = new double[Kaina.Length + 1];
-            BarKodas = new int[BarKodas.Length + 1];
-            Suma = new double[Suma.Length + 1];
-
-            for (int i = 0; i < Eil.Length; i++)
+            if (Gridas.SelectedItem != null)
             {
-                String Eilute = Eil[i];
-                String[] Dalys = Eilute.Split(new String[] { "|" }, System.StringSplitOptions.RemoveEmptyEntries);
-
-                Imone[i] = Dalys[0];
-                Daiktas[i] = Dalys[1];
-                Kiekis[i] = int.Parse(Dalys[2]);
-                VienetoPav[i] = Dalys[3];
-                Kaina[i] = double.Parse(Dalys[4], System.Globalization.CultureInfo.InvariantCulture);
-                BarKodas[i] = int.Parse(Dalys[5]);
-                Suma[i] = Kiekis[i] * Kaina[i];
+                (sender as DataGrid).RowEditEnding -= RowEdit;// nereikia zinot
+                (sender as DataGrid).CommitEdit();// nereikia zinot
+                if (e.EditAction == DataGridEditAction.Commit)
+                {
+                    DataRowView drv = (DataRowView)Gridas.SelectedItem;
+                    try
+                    {
+                        if (!BarKodas.Contains(int.Parse(drv[5].ToString())))
+                        {
+                            Imone = Imone.Concat(new String[] { drv[0].ToString() }).ToArray();
+                            Daiktas = Daiktas.Concat(new String[] { drv[1].ToString() }).ToArray();
+                            Kiekis = Kiekis.Concat(new int[] { int.Parse(drv[2].ToString()) }).ToArray();
+                            VienetoPav = VienetoPav.Concat(new String[] { drv[3].ToString() }).ToArray();
+                            Kaina = Kaina.Concat(new double[] { double.Parse(drv[4].ToString()) }).ToArray();
+                            BarKodas = BarKodas.Concat(new int[] { int.Parse(drv[5].ToString()) }).ToArray();
+                            Suma = Suma.Concat(new double[] { (double.Parse(drv[2].ToString()) * double.Parse(drv[4].ToString())) }).ToArray();
+                            (e.Row.Item as DataRowView).Row[6] = Suma[e.Row.GetIndex()].ToString();
+                        }
+                        else (e.Row.Item as DataRowView).Row[6] = " ";
+                        // Va cia ir galima rasyt i faila
+                    }
+                    catch { }
+                }
+                (sender as DataGrid).RowEditEnding += RowEdit;// nereikia zinot
             }
-            DataRowView datarow = (DataRowView)Gridas.SelectedItem;
-            Imone[Imone.Length - 1] = Gridas.SelectedItems[0].ToString();
-            MessageBox.Show(Imone[Imone.Length - 1]);
-        }     
+            else return;
+        }
     }
 }
