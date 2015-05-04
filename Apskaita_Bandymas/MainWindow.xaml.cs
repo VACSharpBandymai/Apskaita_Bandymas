@@ -67,7 +67,17 @@ namespace Apskaita_Bandymas
                 L.Rows.Add(Imone[i], Daiktas[i], Kiekis[i], VienetoPav[i], Kaina[i], BarKodas[i]);
             }
 
-            double Kainyte = 0, Kiekiukas = 0, Imoniusk = 0, Daiktuk=0;
+            for (int i = 0; i < Eil.Length; i++)
+            {
+                if (!Cbx.Items.Contains(Imone[i])) //jeigu kazkoks elementas neegzistuoja tame combobox'e tai vadinasi kazka ten daryt.
+                {
+                    Cbx.Items.Add(Imone[i]);
+                }
+            }
+            Cbx.Items.Add("Visos Prekes");
+
+
+            double Kainyte = 0, Kiekiukas = 0, Imoniusk = 0, Daiktuk = 0;
             for (int i = 0; i < Eil.Length; i++)
             {
                 Kainyte += Kaina[i];
@@ -76,23 +86,39 @@ namespace Apskaita_Bandymas
                 Daiktuk++;
             }
 
-            
+
             L.Rows.Add("", "", "", "", "", "");
-            L.Rows.Add("Kiekis", "Kiekis", "Bendras Kiekis", "-", "Bendra Suma Eur", "-");
-            L.Rows.Add(Imoniusk, Daiktuk, Kiekiukas,"", Kainyte, "");
-                
+            L.Rows.Add(" ", "Kiekis", "Bendras Kiekis", "-", "Bendra Suma Eur", "-");
+            L.Rows.Add("", Daiktuk, Kiekiukas, "", Kainyte, "");
+
             Gridas.DataContext = L.DefaultView;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataTable L = new DataTable();
-              string getcbx = (Cbx.SelectedItem as ComboBoxItem).Content.ToString();
-              MessageBox.Show(getcbx);
 
-        }  
-        
+            L.Columns.Add("Imones Pavadinimas");
+            L.Columns.Add("Prekes");
+            L.Columns.Add("Kiekis");
+            L.Columns.Add("Vienetas");
+            L.Columns.Add("Kaina Eur");
+            L.Columns.Add("BarKodas");
 
-        
+            string getcbx = Cbx.SelectedItem.ToString();
+            // MessageBox.Show(getcbx);
+
+            for (int i = 0; i < Eil.Length; i++)
+            {
+                if (getcbx == Imone[i])
+                {
+                    L.Rows.Add(Imone[i], Daiktas[i], Kiekis[i], VienetoPav[i], Kaina[i], BarKodas[i]);
+                }
+                else if(getcbx == "Visos Prekes")
+                    L.Rows.Add(Imone[i], Daiktas[i], Kiekis[i], VienetoPav[i], Kaina[i], BarKodas[i]);
+            }
+            Gridas.DataContext = L.DefaultView;
+        }
+
     }
 }

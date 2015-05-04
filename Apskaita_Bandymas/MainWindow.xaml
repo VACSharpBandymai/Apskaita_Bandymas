@@ -3,12 +3,38 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Apskaita" Height="387.097" Width="590.634" ResizeMode="NoResize">
     <Grid>
-        <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="9,81,27,0" VerticalAlignment="Top" Height="240" Width="502" Grid.ColumnSpan="4" Grid.Column="3"/>
-        <ComboBox x:Name="Cbx" HorizontalAlignment="Left" Margin="32,40,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged">
-            <ComboBoxItem>UAB TOPO CENTRAS</ComboBoxItem>
-            <ComboBoxItem>UAB TECHNIKA</ComboBoxItem>
-        </ComboBox>
-
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="Black" Offset="1"/>
+                <GradientStop Color="White"/>
+                <GradientStop Color="Red" Offset="0.55"/>
+                <GradientStop Color="#FF68C8FF" Offset="0.325"/>
+                <GradientStop Color="#FF00FF0C" Offset="0.751"/>
+            </RadialGradientBrush>
+        </Grid.Background>
+        <TabControl HorizontalAlignment="Left" Height="359" VerticalAlignment="Top" Width="585">
+            <TabItem Header="Priemimas">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="9,81,27,0" VerticalAlignment="Top" Height="240" Width="502" Grid.ColumnSpan="4" Grid.Column="3" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False">
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Imones Pavadinimas}" Value="">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="FontSize" Value="13"/>
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+                    </DataGrid>
+                    <ComboBox x:Name="Cbx" Text="Choose" HorizontalAlignment="Left" Margin="32,40,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="ComboBox_SelectionChanged" ScrollViewer.CanContentScroll="False" IsTextSearchEnabled="False"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Pardavimai">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 
 </Window>
