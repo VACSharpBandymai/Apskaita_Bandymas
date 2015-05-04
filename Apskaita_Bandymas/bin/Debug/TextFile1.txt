@@ -5,3 +5,4 @@ UAB TOPO CENTRAS | Pelyte | 32 | vnt. | 33 | 324151 |
 UAB TECHNIKA | Klaviatura | 11 | vnt. | 55 | 987532 |
 UAB TOPO CENTRAS | Laidai | 199 | vnt. | 0.4 | 223311 |
 UAB TECHNIKA | Monitorius | 9 | vnt. | 121.99 | 808843 |
+UAB ELEKTROMARKT | Ausines | 14 | vnt. | 48.99 | 767700 |

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Apskaita_Bandymas.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Apskaita" Height="387.097" Width="590.634" ResizeMode="NoResize">
+        Title="Apskaita" Height="514.097" Width="637.634" ResizeMode="NoResize">
     <Grid>
         <Grid.Background>
             <RadialGradientBrush>
@@ -12,14 +12,16 @@
                 <GradientStop Color="#FF00FF0C" Offset="0.751"/>
             </RadialGradientBrush>
         </Grid.Background>
-        <TabControl HorizontalAlignment="Left" Height="359" VerticalAlignment="Top" Width="585">
+        <TabControl HorizontalAlignment="Left" Height="486" VerticalAlignment="Top" Width="632">
             <TabItem Header="Priemimas">
-                <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="9,81,27,0" VerticalAlignment="Top" Height="240" Width="502" Grid.ColumnSpan="4" Grid.Column="3" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False">
+                <Grid Background="#FFE5E5E5" Margin="-12,-4,-5,-6">
+                    <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="10,81,36,0" VerticalAlignment="Top" Height="247" Width="593" CanUserAddRows="True" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit"/>
+                    <ComboBox x:Name="Cbx" Text="Choose" HorizontalAlignment="Left" Margin="431,38,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="ComboBox_SelectionChanged" ScrollViewer.CanContentScroll="False" IsTextSearchEnabled="False"/>
+                    <DataGrid x:Name="GridasAts" ItemsSource="{Binding}" CanUserAddRows="False" HorizontalAlignment="Left" Margin="10,356,0,0" VerticalAlignment="Top" Height="65" Width="593" CanUserSortColumns="False">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Imones Pavadinimas}" Value="">
+                                    <DataTrigger Binding="{Binding Imoniu Duomenys}" Value=" ">
                                         <Setter Property="FontWeight" Value="Bold" />
                                         <Setter Property="FontSize" Value="13"/>
                                         <Setter Property="Foreground" Value="Green"/>
@@ -28,7 +30,6 @@
                             </Style>
                         </DataGrid.Resources>
                     </DataGrid>
-                    <ComboBox x:Name="Cbx" Text="Choose" HorizontalAlignment="Left" Margin="32,40,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="ComboBox_SelectionChanged" ScrollViewer.CanContentScroll="False" IsTextSearchEnabled="False"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Pardavimai">
