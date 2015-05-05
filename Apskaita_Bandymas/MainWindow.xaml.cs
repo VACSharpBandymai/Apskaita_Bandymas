@@ -31,7 +31,7 @@ namespace Apskaita_Bandymas
         double[] Kaina;
         int[] BarKodas;
         double[] Suma;
-
+        bool arIssaugotas = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -154,36 +154,89 @@ namespace Apskaita_Bandymas
             Gridas.DataContext = L.DefaultView;
             GridasAts.DataContext = S.DefaultView;
         }
+        String[] Failui;
         private void RowEdit(object sender, DataGridRowEditEndingEventArgs e)
         {
-            if (Gridas.SelectedItem != null)
+            if (Gridas.SelectedItem != null) // jeigu pasirinkta eilute egzistuoja
             {
                 (sender as DataGrid).RowEditEnding -= RowEdit;// nereikia zinot
-                (sender as DataGrid).CommitEdit();// nereikia zinot
-                if (e.EditAction == DataGridEditAction.Commit)
+                (sender as DataGrid).CommitEdit();// nereikia zinot // suveiks tik tada jeigu viska busiu uzpildes
+                (sender as DataGrid).Items.Refresh();
+                if (e.EditAction == DataGridEditAction.Commit)  //kai nori uzbaigti reiksmiu keitima
                 {
-                    DataRowView drv = (DataRowView)Gridas.SelectedItem;
-                    try
+                    DataRowView drv = (DataRowView)Gridas.SelectedItem; //reiksmiu gavimas // drv kaip stulpeli galiu rasyti!!
+                    try //viskas vyksta try bloke, ir jeigu ivyksta kokia klaida, pvz dalyba is nulio, tia jinai leidzia testi darba programos nenulauziant.
                     {
-                        if (!BarKodas.Contains(int.Parse(drv[5].ToString())))
+                        if (!BarKodas.Contains(int.Parse(drv[5].ToString()))) // ar nesikartoja vienodos prekes pagal barkodo
                         {
-                            Imone = Imone.Concat(new String[] { drv[0].ToString() }).ToArray();
-                            Daiktas = Daiktas.Concat(new String[] { drv[1].ToString() }).ToArray();
+                            Imone = Imone.Concat(new String[] { drv[0].ToString() }).ToArray(); // imone lygu imone pridetas kazkoks elementas //concat prideda
+                            Daiktas = Daiktas.Concat(new String[] { drv[1].ToString() }).ToArray(); //prie masyvo prideda kita masyva taciau concat senojo masyvo nekeicia, uz tai rasomas masyvas lygu masyvas concat.
                             Kiekis = Kiekis.Concat(new int[] { int.Parse(drv[2].ToString()) }).ToArray();
                             VienetoPav = VienetoPav.Concat(new String[] { drv[3].ToString() }).ToArray();
                             Kaina = Kaina.Concat(new double[] { double.Parse(drv[4].ToString()) }).ToArray();
                             BarKodas = BarKodas.Concat(new int[] { int.Parse(drv[5].ToString()) }).ToArray();
                             Suma = Suma.Concat(new double[] { (double.Parse(drv[2].ToString()) * double.Parse(drv[4].ToString())) }).ToArray();
-                            (e.Row.Item as DataRowView).Row[6] = Suma[e.Row.GetIndex()].ToString();
+                            Failui = new string [Imone.Length];
+                            for(int i = 0; i < Failui.Length; i++) {
+                                Failui[i] = Imone[i] + "|" + Daiktas[i] + "|" + Kiekis[i] + "|" + VienetoPav[i] + "|" + Kaina[i].ToString().Replace(',', '.') + "|" + BarKodas[i];
+                            }
+                            saugot.IsEnabled = true;
                         }
-                        else (e.Row.Item as DataRowView).Row[6] = " ";
+                        //else (e.Row.Item as DataRowView).Row[6] = " ";
+                        (e.Row.Item as DataRowView).Row[6] = Suma[e.Row.GetIndex()].ToString(); // prideda paskaiciuota suma i ta eilute.
+
                         // Va cia ir galima rasyt i faila
+                       // File.WriteAllLines("TextFile1.txt", Failui);
+
                     }
                     catch { }
                 }
                 (sender as DataGrid).RowEditEnding += RowEdit;// nereikia zinot
             }
             else return;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            arIssaugotas = true;
+            File.WriteAllLines("TextFile1.txt", Failui);
+            saugot.IsEnabled = false;
+            System.Windows.Forms.Application.Restart();
+
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (arIssaugotas == false && saugot.IsEnabled == true)
+            {
+                MessageBoxResult Rez = MessageBox.Show("Ar norite issaugoti duomenis?", "Pranesimas", MessageBoxButton.YesNoCancel, MessageBoxImage.Information, MessageBoxResult.Cancel);
+                if (Rez == MessageBoxResult.Yes)
+                {
+                    File.WriteAllLines("TextFile1.txt", Failui);
+                    e.Cancel = false;
+                }
+                else if (Rez == MessageBoxResult.Cancel)
+                {
+                    e.Cancel = true; //tesiam programos darba, neuzdarom
+                }
+            }
+        }
+
+        private void PapildytiPriemimus_Click(object sender, RoutedEventArgs e)
+        {
+            Imone = Imone.Concat(new String[] { ImoneBox.Text }).ToArray(); // imone lygu imone pridetas kazkoks elementas //concat prideda
+            Daiktas = Daiktas.Concat(new String[] { PrekeBox.Text }).ToArray(); //prie masyvo prideda kita masyva taciau concat senojo masyvo nekeicia, uz tai rasomas masyvas lygu masyvas concat.
+            Kiekis = Kiekis.Concat(new int[] { int.Parse(KiekisBox.Text) }).ToArray();
+            VienetoPav = VienetoPav.Concat(new String[] { VienotoPavBox.Text }).ToArray();
+            Kaina = Kaina.Concat(new double[] { double.Parse((KainaBox.Text)) }).ToArray();
+            BarKodas = BarKodas.Concat(new int[] { int.Parse(BarKodasBox.Text) }).ToArray();
+            Suma = Suma.Concat(new double[] { (double.Parse(KiekisBox.Text) * double.Parse(KainaBox.Text)) }).ToArray();
+            Failui = new string[Imone.Length];
+            for (int i = 0; i < Failui.Length; i++)
+            {
+                Failui[i] = Imone[i] + "|" + Daiktas[i] + "|" + Kiekis[i] + "|" + VienetoPav[i] + "|" + Kaina[i].ToString().Replace(',', '.') + "|" + BarKodas[i];
+            }
         }
     }
 }
