@@ -39,3 +39,5 @@ C:\Users\Andrius\Documents\GitHub\Apskaita_Bandymas - Copy\Apskaita_Bandymas\obj
 C:\Users\Andrius\Documents\GitHub\Apskaita_Bandymas - Copy\Apskaita_Bandymas\obj\Debug\Apskaita_Bandymas.csproj.GenerateResource.Cache
 \\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Apskaita_Bandymas\obj\Debug\Prisijungimas.baml
 \\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Apskaita_Bandymas\obj\Debug\Prisijungimas.g.cs
+C:\Users\Andrius\Documents\GitHub\Apskaita_Bandymas\Apskaita_Bandymas\obj\Debug\Prisijungimas.baml
+C:\Users\Andrius\Documents\GitHub\Apskaita_Bandymas\Apskaita_Bandymas\obj\Debug\Prisijungimas.g.cs
