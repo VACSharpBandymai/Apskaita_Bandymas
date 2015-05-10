@@ -170,14 +170,23 @@ namespace Apskaita_Bandymas
         {
             try
             {
-                Imone = Imone.Concat(new String[] { ImoneBox.Text }).ToArray(); // imone lygu imone pridetas kazkoks elementas //concat prideda
-                Daiktas = Daiktas.Concat(new String[] { PrekeBox.Text }).ToArray(); //prie masyvo prideda kita masyva taciau concat senojo masyvo nekeicia, uz tai rasomas masyvas lygu masyvas concat.
-                Kiekis = Kiekis.Concat(new int[] { int.Parse(KiekisBox.Text) }).ToArray();
-                VienetoPav = VienetoPav.Concat(new String[] { VienotoPavBox.Text }).ToArray();
-                Kaina = Kaina.Concat(new double[] { double.Parse((KainaBox.Text)) }).ToArray();
-                BarKodas = BarKodas.Concat(new int[] { int.Parse(BarKodasBox.Text) }).ToArray();
-                Suma = Suma.Concat(new double[] { (double.Parse(KiekisBox.Text) * double.Parse(KainaBox.Text)) }).ToArray();
-                Failui = new string[Imone.Length];
+                if (!String.IsNullOrEmpty(ImoneBox.Text) || !String.IsNullOrEmpty(PrekeBox.Text) || !String.IsNullOrEmpty(KiekisBox.Text) || !String.IsNullOrEmpty(VienotoPavBox.Text)
+                    || !String.IsNullOrEmpty(KainaBox.Text) || !String.IsNullOrEmpty(BarKodasBox.Text))
+                {
+                    Imone = Imone.Concat(new String[] { ImoneBox.Text }).ToArray(); // imone lygu imone pridetas kazkoks elementas //concat prideda
+                    Daiktas = Daiktas.Concat(new String[] { PrekeBox.Text }).ToArray(); //prie masyvo prideda kita masyva taciau concat senojo masyvo nekeicia, uz tai rasomas masyvas lygu masyvas concat.
+                    Kiekis = Kiekis.Concat(new int[] { int.Parse(KiekisBox.Text) }).ToArray();
+                    VienetoPav = VienetoPav.Concat(new String[] { VienotoPavBox.Text }).ToArray();
+                    Kaina = Kaina.Concat(new double[] { double.Parse((KainaBox.Text)) }).ToArray();
+                    BarKodas = BarKodas.Concat(new int[] { int.Parse(BarKodasBox.Text) }).ToArray();
+                    Suma = Suma.Concat(new double[] { (double.Parse(KiekisBox.Text) * double.Parse(KainaBox.Text)) }).ToArray();
+
+                    Masyvas = Masyvas.Concat(new string[][] { new string[] { ImoneBox.Text, PrekeBox.Text, KiekisBox.Text, VienotoPavBox.Text, 
+                KainaBox.Text, BarKodasBox.Text, (double.Parse(KiekisBox.Text) * double.Parse(KainaBox.Text)).ToString() } }).ToArray();
+
+                    Failui = new string[Imone.Length];
+                }
+                else throw new Exception("Neįvesti duomenys!");
                 for (int i = 0; i < Imone.Length; i++)
                 {
                     Masyvas[i][0] = Imone[i];
@@ -209,9 +218,9 @@ namespace Apskaita_Bandymas
                 KainaBox.Text = "";
                 BarKodasBox.Text = "";
             }
-            catch
+            catch (Exception exc)
             {
-                MessageBox.Show("Neteisingi duomenys!");
+                MessageBox.Show(exc.Message);
             }
         }
 
