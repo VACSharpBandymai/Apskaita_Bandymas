@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Data;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents; 
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
-using System.Windows.Controls.Primitives;
 
 namespace Apskaita_Bandymas
 {
@@ -33,6 +23,7 @@ namespace Apskaita_Bandymas
         double[] Suma;
 
         String[][] Masyvas;
+        String[][] UzsakymuMasyvas;
         //prie uzsakymo nauji masyvai
         string[] UzsakymoEil;
         string[] Pirkejas;
@@ -40,11 +31,10 @@ namespace Apskaita_Bandymas
         double[] UzsakymoSuma;
         int[] UzsakymoBarKodas;
 
-
         public MainWindow()
         {
             InitializeComponent();
-            Eil = File.ReadAllLines("TextFile1.txt");
+            Eil = File.ReadAllLines("Pirkimai.txt");
             Masyvas = new string[Eil.Length][];
             for (int i = 0; i < Eil.Length; i++) Masyvas[i] = new string[7];
             Imone = new string[Eil.Length];
@@ -54,7 +44,7 @@ namespace Apskaita_Bandymas
             Kaina = new double[Eil.Length];
             BarKodas = new int[Eil.Length];
             Suma = new double[Eil.Length];
-            //Skaitymo funkcija
+            // skaitomi duomenys
             for (int i = 0; i < Eil.Length; i++)
             {
                 String Eilute = Eil[i];
@@ -77,7 +67,7 @@ namespace Apskaita_Bandymas
                 Sumukas += Suma[i];
                 Kiekiukas += Kiekis[i];
             }
-            PildytiLentele(GridasAts, new string[] { "Imoniu Duomenys", "Bendras Prekiu Kiekis", "Bendru Prekiu Suma" }, 
+            PildytiLentele(GridasAts, new string[] { "Imoniu Duomenys", "Bendras Prekiu Kiekis", "Bendru Prekiu Suma" },
                 new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } });
 
             UzsakymuSkaitymas();
@@ -85,6 +75,7 @@ namespace Apskaita_Bandymas
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // keiciam duomenis
             string getcbx = Cbx.SelectedItem.ToString();
             PildytiLentele(Gridas, new string[] { "Imones Pavadinimas", "Prekes", "Kiekis", "Vienetas", "Kaina Eur", "BarKodas", "Suma Eur" }, Masyvas, Cbx);
             double Kiekiukas = 0, Sumukas = 0;
@@ -105,11 +96,13 @@ namespace Apskaita_Bandymas
                              new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } });
         }
         String[] Failui;
+        String[] UzsakymoFailui;
         private void RowEdit(object sender, DataGridRowEditEndingEventArgs e)
         {
+            // lenteles keitimas
             if (Gridas.SelectedItem != null) // jeigu pasirinkta eilute egzistuoja
             {
-                (sender as DataGrid).RowEditEnding -= RowEdit;// nereikia zinot
+                (sender as DataGrid).RowEditEnding -= RowEdit;// reikalingas norint teisingai keisti duomenis lenteleje
                 (sender as DataGrid).CommitEdit();// nereikia zinot // suveiks tik tada jeigu viska busiu uzpildes
                 (sender as DataGrid).Items.Refresh();
                 if (e.EditAction == DataGridEditAction.Commit)  //kai nori uzbaigti reiksmiu keitima
@@ -117,55 +110,34 @@ namespace Apskaita_Bandymas
                     DataRowView drv = (DataRowView)Gridas.SelectedItem; //reiksmiu gavimas // drv kaip stulpeli galiu rasyti!!
                     try //viskas vyksta try bloke, ir jeigu ivyksta kokia klaida, pvz dalyba is nulio, tia jinai leidzia testi darba programos nenulauziant.
                     {
-                        // if (!BarKodas.Contains(int.Parse(drv[5].ToString()))) // ar nesikartoja vienodos prekes pagal barkodo
+                        Imone[Gridas.Items.IndexOf(Gridas.CurrentItem)] = drv.Row[0].ToString();
+                        Daiktas[Gridas.Items.IndexOf(Gridas.CurrentItem)] = drv[1].ToString();
+                        Kiekis[Gridas.Items.IndexOf(Gridas.CurrentItem)] = int.Parse(drv[2].ToString());
+                        VienetoPav[Gridas.Items.IndexOf(Gridas.CurrentItem)] = drv[3].ToString();
+                        Kaina[Gridas.Items.IndexOf(Gridas.CurrentItem)] = double.Parse(drv[4].ToString());
+                        BarKodas[Gridas.Items.IndexOf(Gridas.CurrentItem)] = int.Parse(drv[5].ToString());
+                        Suma[Gridas.Items.IndexOf(Gridas.CurrentItem)] = double.Parse(drv[4].ToString()) * double.Parse(drv[2].ToString());
+                        Failui = new string[Imone.Length];
+                        for (int i = 0; i < Failui.Length; i++)
+                            Failui[i] = Imone[i] + "|" + Daiktas[i] + "|" + Kiekis[i] + "|" + VienetoPav[i] + "|" + Kaina[i].ToString().Replace(',', '.') + "|" + BarKodas[i];
+                        File.WriteAllLines("Pirkimai.txt", Failui);
+                        (e.Row.Item as DataRowView).Row[6] = Suma[Gridas.Items.IndexOf(Gridas.CurrentItem)].ToString(); // prideda paskaiciuota suma i ta eilute.
+
+                        double Kiekiukas = 0, Sumukas = 0;
+                        for (int i = 0; i < Eil.Length; i++)
                         {
-                            Imone[Gridas.Items.IndexOf(Gridas.CurrentItem)] = drv.Row[0].ToString();
-                            Daiktas[Gridas.Items.IndexOf(Gridas.CurrentItem)] = drv[1].ToString();
-                            Kiekis[Gridas.Items.IndexOf(Gridas.CurrentItem)] = int.Parse(drv[2].ToString());
-                            VienetoPav[Gridas.Items.IndexOf(Gridas.CurrentItem)] = drv[3].ToString();
-                            Kaina[Gridas.Items.IndexOf(Gridas.CurrentItem)] = double.Parse(drv[4].ToString());
-                            BarKodas[Gridas.Items.IndexOf(Gridas.CurrentItem)] = int.Parse(drv[5].ToString());
-                            Suma[Gridas.Items.IndexOf(Gridas.CurrentItem)] = double.Parse(drv[4].ToString()) * double.Parse(drv[2].ToString());
-                            Failui = new string[Imone.Length];
-                            for (int i = 0; i < Failui.Length; i++)
-                                Failui[i] = Imone[i] + "|" + Daiktas[i] + "|" + Kiekis[i] + "|" + VienetoPav[i] + "|" + Kaina[i].ToString().Replace(',', '.') + "|" + BarKodas[i];
-                            File.WriteAllLines("TextFile1.txt", Failui);
-                            (e.Row.Item as DataRowView).Row[6] = Suma[Gridas.Items.IndexOf(Gridas.CurrentItem)].ToString(); // prideda paskaiciuota suma i ta eilute.
-                            
-                            double Kiekiukas = 0, Sumukas = 0;
-                            for (int i = 0; i < Eil.Length; i++)
-                            {
-                                Sumukas += Suma[i];
-                                Kiekiukas += Kiekis[i];
-                            }
-                            PildytiLentele(GridasAts, new string[] { "Imoniu Duomenys", "Bendras Prekiu Kiekis", "Bendru Prekiu Suma" },
-                 new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } });
+                            Sumukas += Suma[i];
+                            Kiekiukas += Kiekis[i];
                         }
+                        PildytiLentele(GridasAts, new string[] { "Imoniu Duomenys", "Bendras Prekiu Kiekis", "Bendru Prekiu Suma" },
+             new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } });
                     }
                     catch { }
                 }
-                (sender as DataGrid).RowEditEnding += RowEdit;// nereikia zinot
+                (sender as DataGrid).RowEditEnding += RowEdit;// reikalingas norint teisingai keisti duomenis lenteleje
             }
             else return;
         }
-
-        /*    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-            {
-                if (arIssaugotas == false && saugot.IsEnabled == true)
-                {
-                    MessageBoxResult Rez = MessageBox.Show("Ar norite issaugoti duomenis?", "Pranesimas", MessageBoxButton.YesNoCancel, MessageBoxImage.Information, MessageBoxResult.Cancel);
-                    if (Rez == MessageBoxResult.Yes)
-                    {
-                        File.WriteAllLines("TextFile1.txt", Failui);
-                        e.Cancel = false;
-                    }
-                    else if (Rez == MessageBoxResult.Cancel)
-                    {
-                        e.Cancel = true; //tesiam programos darba, neuzdarom
-                    }
-                }
-            } */
-
         private void PapildytiPriemimus_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -201,7 +173,7 @@ namespace Apskaita_Bandymas
 
                 for (int i = 0; i < Failui.Length; i++)
                     Failui[i] = Imone[i] + "|" + Daiktas[i] + "|" + Kiekis[i] + "|" + VienetoPav[i] + "|" + Kaina[i].ToString().Replace(',', '.') + "|" + BarKodas[i];
-                File.WriteAllLines("TextFile1.txt", Failui);
+                File.WriteAllLines("Pirkimai.txt", Failui);
                 double Kiekiukas = 0, Sumukas = 0;
                 for (int i = 0; i < Eil.Length; i++)
                 {
@@ -217,6 +189,7 @@ namespace Apskaita_Bandymas
                 VienotoPavBox.Text = "";
                 KainaBox.Text = "";
                 BarKodasBox.Text = "";
+                REZZ.Content = "";
             }
             catch (Exception exc)
             {
@@ -226,12 +199,74 @@ namespace Apskaita_Bandymas
 
         private void Papildytipardavimus_Click(object sender, RoutedEventArgs e)
         {
-            ImoneBox1.Text = "";
-            PrekeBox1.Text = "";
-            KiekisBox1.Text = "";
-            VienotoPavBox1.Text = "";
-            KainaBox1.Text = "";
-            BarKodasBox1.Text = "";
+            try
+            {
+                if (BarKodas.Contains(int.Parse(BarKodasBox1.Text)))
+                {
+                    if (!String.IsNullOrEmpty(ImoneBox1.Text) || !String.IsNullOrEmpty(KiekisBox1.Text) || !String.IsNullOrEmpty(BarKodasBox1.Text))
+                    {
+                        Pirkejas = Pirkejas.Concat(new String[] { ImoneBox1.Text }).ToArray(); // imone lygu imone pridetas kazkoks elementas //concat prideda
+                        UzsakytasKiekis = UzsakytasKiekis.Concat(new int[] { int.Parse(KiekisBox1.Text) }).ToArray();
+                        UzsakymoBarKodas = UzsakymoBarKodas.Concat(new int[] { int.Parse(BarKodasBox1.Text) }).ToArray();
+                        UzsakymoSuma = UzsakymoSuma.Concat(new double[] { 0 }).ToArray();
+
+                        UzsakymuMasyvas = UzsakymuMasyvas.Concat(new string[][] { new string[] { ImoneBox1.Text, KiekisBox1.Text, "",
+                        BarKodasBox1.Text, " ", " " } }).ToArray();
+
+                        UzsakymoFailui = new string[Pirkejas.Length];
+                    }
+                    else throw new Exception("Neįvesti duomenys!");
+                    bool ArRasti = true;
+                    int kuris = 0;
+                    for (int i = 0; i < Pirkejas.Length; i++)
+                    {
+                        UzsakymuMasyvas[i][0] = Pirkejas[i];
+                        UzsakymuMasyvas[i][3] = UzsakytasKiekis[i].ToString();
+                        for (int j = 0; j < Kaina.Length; j++)
+                            if (UzsakymoBarKodas[i] == BarKodas[j])
+                            {
+                                UzsakymuMasyvas[i][4] = Kaina[j].ToString().Replace(',', '.');
+                                UzsakymoSuma[i] = Kaina[j] * UzsakytasKiekis[i];
+                                UzsakymuMasyvas[i][2] = Daiktas[j];
+                                UzsakymuMasyvas[i][5] = UzsakymoSuma[i].ToString().Replace(',', '.');
+                                ArRasti = true;
+                                break;
+                            }
+                            else
+                            {
+                                kuris = i;
+                                ArRasti = false;
+                            }
+                        UzsakymuMasyvas[i][1] = UzsakymoBarKodas[i].ToString();
+                    }
+                    if (!ArRasti)
+                    {
+                        UzsakymuMasyvas[kuris] = new string[5];
+                    }
+                    PildytiLentele(GridasUzsakymo, new string[] { "Pirkejas", "Barkodas", "Daiktai", "Kiekis", "Kaina", "Suma Eur" }, UzsakymuMasyvas);
+                    PildytiComboBoxus(Cbx1, Pirkejas, "Visi Pirkejai");
+                    for (int i = 0; i < UzsakymoFailui.Length; i++)
+                        UzsakymoFailui[i] = UzsakymuMasyvas[i][0] + "|" + UzsakymuMasyvas[i][1] + "|" + UzsakymuMasyvas[i][3] + "|" + UzsakymuMasyvas[i][4];
+                    File.WriteAllLines("Uzsakymai.txt", UzsakymoFailui);
+                    double Kiekiukas = 0, Sumukas = 0;
+                    for (int i = 0; i < UzsakymuMasyvas.Length; i++)
+                    {
+                        Sumukas += UzsakymoSuma[i];
+                        Kiekiukas += UzsakytasKiekis[i];
+                    }
+                    PildytiLentele(GridasAts1, new string[] { "Imoniu Duomenys", "Bendras Prekiu Kiekis", "Bendru Prekiu Suma" },
+                        new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } });
+                    ImoneBox1.Text = "";
+                    KiekisBox1.Text = "";
+                    BarKodasBox1.Text = "";
+                }
+                else MessageBox.Show("Bar Kodas neegzistuoja!");
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+            Cbx1.SelectedItem = "Visi Pirkejai";
         }
         void UzsakymuSkaitymas()
         {
@@ -245,12 +280,15 @@ namespace Apskaita_Bandymas
             L.Columns.Add("Suma Eur");
 
             UzsakymoEil = File.ReadAllLines("Uzsakymai.txt");
+            UzsakymuMasyvas = new string[UzsakymoEil.Length][];
+            for (int i = 0; i < UzsakymoEil.Length; i++)
+                UzsakymuMasyvas[i] = new string[6];
             Pirkejas = new string[UzsakymoEil.Length];
             UzsakytasKiekis = new int[UzsakymoEil.Length];
             UzsakymoBarKodas = new int[UzsakymoEil.Length];
             UzsakymoSuma = new double[UzsakymoEil.Length];
             bool arpridetas = false;
-            //Skaitymo funkcija
+            //Skaitymas
             for (int i = 0; i < UzsakymoEil.Length; i++)
             {
                 String Eilute = UzsakymoEil[i];
@@ -258,8 +296,7 @@ namespace Apskaita_Bandymas
 
                 Pirkejas[i] = Dalys[0];
                 UzsakymoBarKodas[i] = int.Parse(Dalys[1]);
-                Daiktas[i] = Dalys[2];
-                UzsakytasKiekis[i] = int.Parse(Dalys[3]);          
+                UzsakytasKiekis[i] = int.Parse(Dalys[2]);
             }
 
             for (int i = 0; i < UzsakymoEil.Length; i++)
@@ -270,8 +307,10 @@ namespace Apskaita_Bandymas
                     if (BarKodas[j] == UzsakymoBarKodas[i])
                     {
                         UzsakymoSuma[i] = Kaina[j] * UzsakytasKiekis[i];
-                        L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[i], UzsakytasKiekis[i], Kaina[j].ToString().Replace(',', '.'), UzsakymoSuma[i].ToString().Replace(',', '.'));
+                        L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[j], UzsakytasKiekis[i], Kaina[j].ToString().Replace(',', '.'), UzsakymoSuma[i].ToString().Replace(',', '.'));
                         arpridetas = true;
+                        UzsakymuMasyvas[i] = (new string[] { Pirkejas[i], UzsakymoBarKodas[i].ToString(), Daiktas[j],
+                        UzsakytasKiekis[i].ToString(), Kaina[j].ToString().Replace(',', '.') , UzsakymoSuma[i].ToString().Replace(',', '.') });
                     }
                 }
                 if (!arpridetas) L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[i], UzsakytasKiekis[i]);
@@ -282,7 +321,7 @@ namespace Apskaita_Bandymas
             double Kiekiukas = 0, Sumukas = 0;
             for (int i = 0; i < UzsakymoEil.Length; i++)
             {
-                //Sumukas += UzsakymoSuma[i];
+                Sumukas += UzsakymoSuma[i];
                 Kiekiukas += UzsakytasKiekis[i];
             }
             PildytiLentele(GridasAts1, new string[] { "Imoniu Duomenys", "Bendras Prekiu Kiekis", "Bendru Prekiu Suma" },
@@ -302,16 +341,19 @@ namespace Apskaita_Bandymas
             L.Columns.Add("Suma Eur");
 
             string getcbx = Cbx1.SelectedItem.ToString();
-            // MessageBox.Show(getcbx);
 
             for (int i = 0; i < UzsakymoEil.Length; i++)
             {
-                if (getcbx == Pirkejas[i])
-                {
-                    L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[i], UzsakytasKiekis[i]);
-                }
-                else if (getcbx == "Visi Pirkejai")
-                    L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[i], UzsakytasKiekis[i]);
+                for (int j = 0; j < BarKodas.Length; j++)
+                    if (BarKodas[j] == UzsakymoBarKodas[i])
+                    {
+                        if (getcbx == Pirkejas[i])
+                        {
+                            L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[i], UzsakytasKiekis[i], Kaina[j], UzsakymoSuma[i]);
+                        }
+                        else if (getcbx == "Visi Pirkejai")
+                            L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[i], UzsakytasKiekis[i], Kaina[j], UzsakymoSuma[i]);
+                    }
             }
 
             double Kiekiukas = 0, Sumukas = 0;
@@ -319,15 +361,15 @@ namespace Apskaita_Bandymas
             {
                 if (getcbx == Pirkejas[i])
                 {
-                   // Sumukas += Suma[i];
+                    Sumukas += UzsakymoSuma[i];
                     Kiekiukas += UzsakytasKiekis[i];
-                    
+
                 }
                 else if (getcbx == "Visi Pirkejai")
                 {
-                    //Sumukas += Suma[i];
+                    Sumukas += UzsakymoSuma[i];
                     Kiekiukas += UzsakytasKiekis[i];
-                   
+
                 }
             }
             PildytiLentele(GridasAts1, new string[] { "Imoniu Duomenys", "Bendras Prekiu Kiekis", "Bendru Prekiu Suma" },
@@ -356,8 +398,32 @@ new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } 
                 for (int i = 0; i < Eil.Length; i++)
                     if (!Boxas.Items.Contains(Pasirinkimas)) //jeigu kazkoks elementas neegzistuoja tame combobox'e tai vadinasi kazka ten daryt.
                         Boxas.Items.Add(Pasirinkimas);
-            Boxas.Items.Add(Visi);
+            if (!Boxas.Items.Contains(Visi)) Boxas.Items.Add(Visi);
             Boxas.SelectedItem = Visi;
+        }
+
+        private void APreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // leidzia ivest tik skaicius
+            char c = Convert.ToChar(e.Text);
+            if (Char.IsNumber(c)) e.Handled = false;
+            else e.Handled = true;
+        }
+
+        private void BarKodasBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Tikrina ar ivestas barkodas geras
+            try
+            {
+                for (int i = 0; i < BarKodas.Length; i++)
+                    if (BarKodas[i] == int.Parse(BarKodasBox1.Text))
+                    {
+                        REZZ.Content = Daiktas[i];
+                        break;
+                    }
+                    else REZZ.Content = "Tokio Bar kodo nera!";
+            }
+            catch { }
         }
     }
 }
