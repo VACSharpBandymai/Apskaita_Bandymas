@@ -1,0 +1,15 @@
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\bin\Debug\Projektas.exe.config
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\bin\Debug\Projektas.exe
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\bin\Debug\Projektas.pdb
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\Projektas.csprojResolveAssemblyReference.cache
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\MainWindow.baml
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\Prisijungimas.baml
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\MainWindow.g.cs
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\Prisijungimas.g.cs
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\App.g.cs
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\Projektas_MarkupCompile.cache
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\Projektas.g.resources
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\Projektas.Properties.Resources.resources
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\Projektas.csproj.GenerateResource.Cache
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\Projektas.exe
+c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\Projektas.pdb
