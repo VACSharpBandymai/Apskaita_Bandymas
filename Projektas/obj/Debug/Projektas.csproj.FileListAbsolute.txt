@@ -13,3 +13,18 @@ c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\D
 c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\Projektas.csproj.GenerateResource.Cache
 c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\Projektas.exe
 c:\users\andrius\documents\visual studio 2013\Projects\Projektas\Projektas\obj\Debug\Projektas.pdb
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\bin\Debug\Projektas.exe.config
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\obj\Debug\Projektas.exe
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\obj\Debug\Projektas.pdb
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\bin\Debug\Projektas.exe
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\bin\Debug\Projektas.pdb
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\obj\Debug\Projektas.csprojResolveAssemblyReference.cache
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\obj\Debug\MainWindow.baml
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\obj\Debug\Prisijungimas.baml
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\obj\Debug\MainWindow.g.cs
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\obj\Debug\Prisijungimas.g.cs
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\obj\Debug\App.g.cs
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\obj\Debug\Projektas_MarkupCompile.cache
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\obj\Debug\Projektas.g.resources
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\obj\Debug\Projektas.Properties.Resources.resources
+\\psf\Home\Documents\C#_Darbai\Apskaita_Bandymas\Projektas\obj\Debug\Projektas.csproj.GenerateResource.Cache

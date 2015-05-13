@@ -27,7 +27,7 @@ namespace Apskaita_Bandymas
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (Vartotojas.Text == "admin" && pass.Password == "admin")
+            if (Vartotojas.Text == "" && pass.Password == "")
             {
                 MainWindow win2 = new MainWindow();
                 win2.Show();
