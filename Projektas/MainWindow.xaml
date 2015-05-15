@@ -6,7 +6,7 @@
         <TabControl HorizontalAlignment="Left" Height="486" VerticalAlignment="Top" Width="632">
             <TabItem Header="Priemimas">
                 <Grid Background="#FFE5E5E5" Margin="-12,-4,-5,-6">
-                    <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="10,81,36,0" VerticalAlignment="Top" Height="247" Width="593" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
+                    <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="10,81,36,0" VerticalAlignment="Top" Height="247" Width="593" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit" Loaded="Gridas_Loaded">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Style.Triggers>
@@ -66,7 +66,7 @@
             </TabItem>
             <TabItem Header="Likutis">
                 <Grid Background="#FFE5E5E5" Margin="-12,-4,-5,-6">
-                    <DataGrid x:Name="GridasLikutis" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="10,37,36,0" VerticalAlignment="Top" Height="291" Width="593" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
+                    <DataGrid x:Name="GridasLikutis" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="12,10,38,0" VerticalAlignment="Top" Height="318" Width="593" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Style.Triggers>
@@ -91,7 +91,6 @@
                             </Style>
                         </DataGrid.Resources>
                     </DataGrid>
-                    <Button Content="Rodyti likuti&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106" Click="Button_Click" Height="22"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Papildyti Sąrašą" Height="23" VerticalAlignment="Bottom" Cursor="">

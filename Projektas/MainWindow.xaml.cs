@@ -331,7 +331,6 @@ namespace Apskaita
             PildytiLentele(GridasAts1, new string[] { "Imoniu Duomenys", "Bendras Prekiu Kiekis", "Bendru Prekiu Suma" },
                 new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } });
             GridasUzsakymo.DataContext = L.DefaultView;
-            Likuciams();
         }
 
         private void ComboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -452,7 +451,7 @@ new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } 
             {
                 for (int i = 0; i < BarKodas.Length; i++)
                 {
-                    if (Daiktas[i] == Pasiulymai.SelectedItem.ToString())
+                    if ((BarKodas[i] + "   " + Daiktas[i]) == Pasiulymai.SelectedItem.ToString())
 
                         BarKodasBox1.Text = BarKodas[i].ToString();
 
@@ -504,8 +503,7 @@ new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } 
             PildytiLentele(GridasAts3, new string[] { "Imoniu Duomenys", "Bendras Prekiu Kiekis", "Bendru Prekiu Suma" },
                 new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } });
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Gridas_Loaded(object sender, RoutedEventArgs e)
         {
             Likuciams();
         }
