@@ -311,7 +311,7 @@ namespace Apskaita
                     if (BarKodas[j] == UzsakymoBarKodas[i])
                     {
                         UzsakymoSuma[i] = (Kaina[j] + ((Kaina[j] * 0.21) + (Kaina[j] * 0.21) * 0.70)) * UzsakytasKiekis[i];
-                        L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[j], UzsakytasKiekis[i], (Kaina[j] + ((Kaina[j] * 0.21) + (Kaina[j] * 0.21) * 0.70)).ToString().Replace(',', '.'), UzsakymoSuma[i].ToString().Replace(',', '.'));
+                        L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[j], UzsakytasKiekis[i], string.Format("{0:f2}", (Kaina[j] + ((Kaina[j] * 0.21) + (Kaina[j] * 0.21) * 0.70))).ToString().Replace(',', '.'),string.Format("{0:f2}", UzsakymoSuma[i]).Replace(',', '.'));
                         arpridetas = true;
                         UzsakymuMasyvas[i] = (new string[] { Pirkejas[i], UzsakymoBarKodas[i].ToString(), Daiktas[j],
                         UzsakytasKiekis[i].ToString(), Kaina[j].ToString().Replace(',', '.') , UzsakymoSuma[i].ToString().Replace(',', '.') });
@@ -354,10 +354,10 @@ namespace Apskaita
                     {
                         if (getcbx == Pirkejas[i])
                         {
-                            L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[i], UzsakytasKiekis[i], (Kaina[j] + ((Kaina[j] * 0.21) + (Kaina[j] * 0.21) * 0.70)), UzsakymoSuma[i]);
+                            L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[i], UzsakytasKiekis[i], string.Format("{0:f2}",(Kaina[j] + ((Kaina[j] * 0.21) + (Kaina[j] * 0.21) * 0.70))), UzsakymoSuma[i]);
                         }
                         else if (getcbx == "Visi Pirkejai")
-                            L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[i], UzsakytasKiekis[i], (Kaina[j] + ((Kaina[j] * 0.21) + (Kaina[j] * 0.21) * 0.70)), UzsakymoSuma[i]);
+                            L.Rows.Add(Pirkejas[i], UzsakymoBarKodas[i], Daiktas[i], UzsakytasKiekis[i], string.Format("{0:f2}",(Kaina[j] + ((Kaina[j] * 0.21) + (Kaina[j] * 0.21) * 0.70))), UzsakymoSuma[i]);
                     }
             }
 
@@ -409,9 +409,13 @@ new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } 
 
         private void APreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            // leidzia ivest tik skaicius
-            char c = Convert.ToChar(e.Text);
-            if (Char.IsNumber(c)) e.Handled = false;
+            if (((TextBox)sender).Text.Length < 6)
+            {
+                // leidzia ivest tik skaicius
+                char c = Convert.ToChar(e.Text);
+                if (Char.IsNumber(c)) e.Handled = false;
+                else e.Handled = true;
+            }
             else e.Handled = true;
         }
         private void BarKodasBox1_TextChanged(object sender, TextChangedEventArgs e)
