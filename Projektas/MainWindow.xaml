@@ -6,7 +6,7 @@
         <TabControl HorizontalAlignment="Left" Height="486" VerticalAlignment="Top" Width="632">
             <TabItem Header="Priemimas">
                 <Grid Background="#FFE5E5E5" Margin="-12,-4,-5,-6">
-                    <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="10,81,36,0" VerticalAlignment="Top" Height="247" Width="593" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit" Loaded="Gridas_Loaded">
+                    <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="12,37,10,0" VerticalAlignment="Top" Height="348" Width="621" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit" Loaded="Gridas_Loaded">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Style.Triggers>
@@ -18,8 +18,8 @@
                             </Style>
                         </DataGrid.Resources>
                     </DataGrid>
-                    <ComboBox x:Name="Cbx" Text="Choose" HorizontalAlignment="Left" Margin="431,38,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="ComboBox_SelectionChanged" ScrollViewer.CanContentScroll="False" IsTextSearchEnabled="False"/>
-                    <DataGrid x:Name="GridasAts" ItemsSource="{Binding}" CanUserAddRows="False" HorizontalAlignment="Left" Margin="10,356,0,0" VerticalAlignment="Top" Height="65" Width="593" CanUserSortColumns="False">
+                    <ComboBox x:Name="Cbx" Text="Choose" HorizontalAlignment="Left" Margin="461,10,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="ComboBox_SelectionChanged" ScrollViewer.CanContentScroll="False" IsTextSearchEnabled="False"/>
+                    <DataGrid x:Name="GridasAts" ItemsSource="{Binding}" CanUserAddRows="False" HorizontalAlignment="Left" Margin="10,390,0,0" VerticalAlignment="Top" Height="65" Width="623" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" ScrollViewer.CanContentScroll="False">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Style.Triggers>
@@ -32,11 +32,12 @@
                             </Style>
                         </DataGrid.Resources>
                     </DataGrid>
+                    <Button Content="Trinti irasa" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" Width="75" Click="TrintiPriemima_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Uzsakymai">
                 <Grid Background="#FFE5E5E5" Margin="-12,-4,-5,-6">
-                    <DataGrid x:Name="GridasUzsakymo" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="10,81,36,0" VerticalAlignment="Top" Height="247" Width="593" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
+                    <DataGrid x:Name="GridasUzsakymo" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="12,37,10,0" VerticalAlignment="Top" Height="348" Width="621" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Style.Triggers>
@@ -48,8 +49,8 @@
                             </Style>
                         </DataGrid.Resources>
                     </DataGrid>
-                    <ComboBox x:Name="Cbx1" Text="Choose" HorizontalAlignment="Left" Margin="431,38,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="ComboBox1_SelectionChanged" ScrollViewer.CanContentScroll="False" IsTextSearchEnabled="False"/>
-                    <DataGrid x:Name="GridasAts1" ItemsSource="{Binding}" CanUserAddRows="False" HorizontalAlignment="Left" Margin="10,356,0,0" VerticalAlignment="Top" Height="65" Width="593" CanUserSortColumns="False">
+                    <ComboBox x:Name="Cbx1" Text="Choose" HorizontalAlignment="Left" Margin="461,10,0,0" VerticalAlignment="Top" Width="172" SelectionChanged="ComboBox1_SelectionChanged" ScrollViewer.CanContentScroll="False" IsTextSearchEnabled="False"/>
+                    <DataGrid x:Name="GridasAts1" ItemsSource="{Binding}" CanUserAddRows="False" HorizontalAlignment="Left" Margin="12,390,0,0" VerticalAlignment="Top" Height="65" Width="623" CanUserSortColumns="False">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Style.Triggers>
@@ -62,41 +63,12 @@
                             </Style>
                         </DataGrid.Resources>
                     </DataGrid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Pelnas">
-                <Grid Background="#FFE5E5E5" Margin="-12,-4,-5,-6">
-                    <DataGrid x:Name="GridasPelnas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="10,29,36,0" VerticalAlignment="Top" Height="304" Width="593" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
-                        <DataGrid.Resources>
-                            <Style TargetType="{x:Type DataGridRow}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Suma Eur}" Value=" ">
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                        <Setter Property="Foreground" Value="Red"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.Resources>
-                    </DataGrid>
-                    <DataGrid x:Name="GridasAts4" ItemsSource="{Binding}" CanUserAddRows="False" HorizontalAlignment="Left" Margin="10,356,0,0" VerticalAlignment="Top" Height="65" Width="593" CanUserSortColumns="False">
-                        <DataGrid.Resources>
-                            <Style TargetType="{x:Type DataGridRow}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Imoniu Duomenys}" Value=" ">
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                        <Setter Property="FontSize" Value="13"/>
-                                        <Setter Property="Foreground" Value="Green"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.Resources>
-                    </DataGrid>
-                    <Button Content="Rodyti" HorizontalAlignment="Left" Margin="26,2,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+                    <Button Content="Trinti irasa" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" Width="75" Click="TrintiUzsakyma_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Likutis">
                 <Grid Background="#FFE5E5E5" Margin="-12,-4,-5,-6">
-                    <DataGrid x:Name="GridasLikutis" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="12,10,38,0" VerticalAlignment="Top" Height="318" Width="593" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
+                    <DataGrid x:Name="GridasLikutis" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="12,10,10,0" VerticalAlignment="Top" Height="375" Width="621" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Style.Triggers>
@@ -108,7 +80,7 @@
                             </Style>
                         </DataGrid.Resources>
                     </DataGrid>
-                    <DataGrid x:Name="GridasAts3" ItemsSource="{Binding}" CanUserAddRows="False" HorizontalAlignment="Left" Margin="10,356,0,0" VerticalAlignment="Top" Height="65" Width="593" CanUserSortColumns="False">
+                    <DataGrid x:Name="GridasAts3" ItemsSource="{Binding}" CanUserAddRows="False" HorizontalAlignment="Left" Margin="10,390,0,0" VerticalAlignment="Top" Height="65" Width="623" CanUserSortColumns="False">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Style.Triggers>
