@@ -451,7 +451,10 @@ new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } 
             {
                 for (int i = 0; i < BarKodas.Length; i++)
                 {
+
                     if ((BarKodas[i] + "   " + Daiktas[i]) == Pasiulymai.SelectedItem.ToString())
+
+                    if (BarKodas[i] + "   " + Daiktas[i] == Pasiulymai.SelectedItem.ToString())
 
                         BarKodasBox1.Text = BarKodas[i].ToString();
 
@@ -506,6 +509,50 @@ new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } 
         private void Gridas_Loaded(object sender, RoutedEventArgs e)
         {
             Likuciams();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string[][] LikMas1 = new string[Gridas.Items.Count][];
+            for (int i = 0; i < Gridas.Items.Count; i++) LikMas1[i] = new string[7]; //kiekvienai eilutei po 7 stulpelius pridedam.
+            int KiekiuSumaUzsakyme = 0;
+            for (int i = 0; i < Gridas.Items.Count; i++)
+            {
+                KiekiuSumaUzsakyme = 0;
+                LikMas1[i][0] = Imone[i];
+                LikMas1[i][1] = Daiktas[i];
+                LikMas1[i][2] = Kiekis[i].ToString();
+                LikMas1[i][6] = Suma[i].ToString();
+                for (int j = 0; j < GridasUzsakymo.Items.Count; j++)
+                {
+                    if (BarKodas[i] == UzsakymoBarKodas[j])
+                    {
+                        KiekiuSumaUzsakyme += UzsakytasKiekis[j];
+                    }
+                }
+                for (int j = 0; j < GridasUzsakymo.Items.Count; j++)
+                {
+                    if (BarKodas[i] == UzsakymoBarKodas[j])
+                    {
+                        LikMas1[i][2] = (Kiekis[i] - KiekiuSumaUzsakyme).ToString();
+                        LikMas1[i][6] = (int.Parse(LikMas1[i][2].ToString()) * Kaina[i]).ToString();
+                    }
+                }
+
+                LikMas1[i][3] = VienetoPav[i];
+                LikMas1[i][4] = Kaina[i].ToString();
+                LikMas1[i][5] = BarKodas[i].ToString();
+
+            }
+            PildytiLentele(GridasPelnas, new string[] { "Imones Pavadinimas", "Prekes", "Kiekis", "Vienetas", "Kaina Eur", "BarKodas", "Suma Eur" }, LikMas1);
+            double Kiekiukas = 0, Sumukas = 0;
+            for (int i = 0; i < Gridas.Items.Count; i++)
+            {
+                Sumukas += double.Parse(LikMas1[i][6].ToString(), CultureInfo.InvariantCulture);
+                Kiekiukas += double.Parse(LikMas1[i][2].ToString(), CultureInfo.InvariantCulture);
+            }
+            PildytiLentele(GridasAts4, new string[] { "Imoniu Duomenys", "Bendras Prekiu Kiekis", "Bendru Prekiu Suma" },
+                new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } });
         }
     }
 }
