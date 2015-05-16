@@ -6,7 +6,7 @@
         <TabControl HorizontalAlignment="Left" Height="486" VerticalAlignment="Top" Width="632">
             <TabItem Header="Priemimas">
                 <Grid Background="#FFE5E5E5" Margin="-12,-4,-5,-6">
-                    <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="12,37,10,0" VerticalAlignment="Top" Height="348" Width="621" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit" Loaded="Gridas_Loaded">
+                    <DataGrid x:Name="Gridas" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="12,37,10,0" VerticalAlignment="Top" Height="348" Width="621" CanUserAddRows="False" AlternatingRowBackground="#FFD6FFFB" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit" Loaded="Gridas_Loaded">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Style.Triggers>
@@ -37,7 +37,7 @@
             </TabItem>
             <TabItem Header="Uzsakymai">
                 <Grid Background="#FFE5E5E5" Margin="-12,-4,-5,-6">
-                    <DataGrid x:Name="GridasUzsakymo" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="12,37,10,0" VerticalAlignment="Top" Height="348" Width="621" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
+                    <DataGrid x:Name="GridasUzsakymo" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="12,37,10,0" VerticalAlignment="Top" Height="348" Width="621" CanUserAddRows="False" AlternatingRowBackground="#FFDCFFD6" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Style.Triggers>
@@ -68,7 +68,7 @@
             </TabItem>
             <TabItem Header="Likutis">
                 <Grid Background="#FFE5E5E5" Margin="-12,-4,-5,-6">
-                    <DataGrid x:Name="GridasLikutis" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="12,10,10,0" VerticalAlignment="Top" Height="375" Width="621" CanUserAddRows="False" AlternatingRowBackground="#FFC1F9FF" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
+                    <DataGrid x:Name="GridasLikutis" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="12,10,10,0" VerticalAlignment="Top" Height="375" Width="621" CanUserAddRows="False" AlternatingRowBackground="#FFFAFFC5" CanUserResizeRows="False" SelectionMode="Single" CanUserSortColumns="False" RowEditEnding="RowEdit">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Style.Triggers>
@@ -126,6 +126,7 @@
                                 <TextBlock HorizontalAlignment="Left" Margin="68,168,0,0" TextWrapping="Wrap" Text="BarKodas" VerticalAlignment="Top"/>
                                 <Label x:Name="REZZ" HorizontalAlignment="Left" Margin="128,230,0,0" VerticalAlignment="Top"/>
                                 <ListBox x:Name="Pasiulymai" Visibility="Collapsed" HorizontalAlignment="Left" Height="152" Margin="359,140,0,0" VerticalAlignment="Top" Width="204" SelectionChanged="Pasirinkimo_indexas"/>
+                                <Label x:Name="LikuciaiPasiulymai" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="128,245,0,0"/>
                             </Grid>
                         </TabItem>
                     </TabControl>
