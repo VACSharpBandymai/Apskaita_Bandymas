@@ -27,7 +27,7 @@ namespace Apskaita
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (Vartotojas.Text == "" && pass.Password == "")
+            if (Vartotojas.Text == "admin" && pass.Password == "admin")
             {
                 MainWindow win2 = new MainWindow();
                 win2.Show();

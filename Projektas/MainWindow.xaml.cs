@@ -36,7 +36,8 @@ namespace Apskaita
         public MainWindow()
         {
             InitializeComponent();
-            Eil = File.ReadAllLines("Pirkimai.txt");
+            if (!File.Exists("Pirkimai.txt")) File.CreateText("Pirkimai.txt");
+                Eil = File.ReadAllLines("Pirkimai.txt");
             Masyvas = new string[Eil.Length][];
             for (int i = 0; i < Eil.Length; i++) Masyvas[i] = new string[7];
             Imone = new string[Eil.Length];
@@ -305,6 +306,7 @@ namespace Apskaita
             L.Columns.Add("Kaina");
             L.Columns.Add("Suma Eur");
 
+            if (!File.Exists("Uzsakymai.txt")) File.CreateText("Uzsakymai.txt");
             UzsakymoEil = File.ReadAllLines("Uzsakymai.txt");
             UzsakymuMasyvas = new string[UzsakymoEil.Length][];
             for (int i = 0; i < UzsakymoEil.Length; i++) UzsakymuMasyvas[i] = new string[6];
@@ -643,6 +645,7 @@ new string[][] { new string[] { " ", Kiekiukas.ToString(), Sumukas.ToString() } 
     }
     public static class Pletiniai
     {
+        // Skirtas is masyvo istrinti elementa su pasirinktu indeksu
         public static T[] RemoveAt<T>(this T[] source, int index)
         {
             T[] dest = new T[source.Length - 1];
